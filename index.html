@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Мой Globe.gl</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>html,body{margin:0;height:100%;background:#000}#globe{position:fixed;inset:0}</style>
+  <script src="https://unpkg.com/globe.gl@^2.34.0/dist/globe.gl.min.js"></script>
+</head>
+<body>
+  <div id="globe"></div>
+  <script>
+    const g = Globe()(document.getElementById('globe'))
+      .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+      .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+      .backgroundImageUrl('https://unpkg.com/three-globe/example/img/night-sky.png');
+
+    g.controls().autoRotate = true;
+    g.controls().autoRotateSpeed = 0.6;
+    function fit(){ g.width([innerWidth]); g.height([innerHeight]); }
+    addEventListener('resize', fit); fit();
+
+    fetch('./points.json').then(r=>r.json()).then(data=>{
+      const maxPop = Math.max(...data.map(d => d.pop || 1));
+      const norm = d => (d.pop || 1) / maxPop;
+
+      const pointAltitude = d => 0.05 + norm(d) * 0.38;
+      const pointRadius   = d => 0.40 + norm(d) * 0.09;
+
+      const pointColor = d => {
+        const t = norm(d);
+        const r = Math.round(255);
+        const g = Math.round(180 - 180*t);
+        const b = Math.round(0);
+        return `rgba(${r},${g},${b},0.95)`;
+      };
+
+      g.pointsData(data)
+        .pointLat(d=>d.lat).pointLng(d=>d.lng)
+        .pointAltitude(pointAltitude).pointRadius(pointRadius)
+        .pointResolution(12)
+        .pointColor(pointColor)
+        .pointLabel(d=> `${d.name} — ${d.pop}`);
+
+      g.htmlElementsData(data)
+        .htmlLat(d => {
+          const mag = Math.log10(Math.max(d.pop || 1, 1));
+          const degOffset = 0.6 + mag * 0.25;
+          return d.lat - degOffset;
+        })
+        .htmlLng(d => d.lng)
+        .htmlAltitude(() => 0.001)
+        .htmlElement(d => {
+          const el = document.createElement('div');
+          el.textContent = d.name;
+          el.style.font = '700 14px Segoe UI, Arial, Helvetica, sans-serif';
+          el.style.color = '#fff';
+          el.style.textShadow = '0 0 3px #000, 0 0 5px #000';
+          el.style.pointerEvents = 'none';
+          el.style.whiteSpace = 'nowrap';
+          el.style.transform = 'translate(-50%, 0px)';
+          return el;
+        });
+    });
+  </script>
+</body>
+</html>
