@@ -13,7 +13,7 @@
     .sw-wrap{
       position:fixed;
       inset:0;
-      z-index:0;
+      z-index:2;                 /* <-- подняли над шаром */
       pointer-events:none;
       display:flex;
       justify-content:flex-end;
@@ -49,11 +49,8 @@
       text-shadow:0 0 10px rgba(0,0,0,.9);
       animation:sw-move 65s linear infinite;
     }
-    .sw-crawl h3{
-      margin:0 0 .8em 0;
-      text-align:center;
-      letter-spacing:1px;
-      font-size:clamp(26px,3vw,56px);
+    .sw-crawl p{
+      margin:0 0 1.1em 0;
     }
     @keyframes sw-move{
       0%   { transform:translateX(-50%) translateY(100%); }
@@ -63,6 +60,7 @@
 </head>
 <body>
 
+  <!-- Звёздные титры -->
   <div class="sw-wrap">
     <div class="sw-stage">
       <div class="sw-plane">
@@ -78,6 +76,7 @@
     </div>
   </div>
 
+  <!-- Глобус -->
   <div id="globe"></div>
   <script>
     const g = Globe()(document.getElementById('globe'))
@@ -133,4 +132,3 @@
   </script>
 </body>
 </html>
-
