@@ -48,16 +48,18 @@
   letter-spacing:.6px;
   text-align:justify;
   text-shadow:0 0 10px rgba(0,0,0,.9);
-  animation:sw-move 200s linear infinite;
-    }
-    .sw-crawl p{
-      margin:0 0 1.1em 0;
-    }
 
-    @keyframes sw-move{
-  0%   { transform:translateX(-50%) translateY(60%); }   /* старт ближе к экрану */
-  100% { transform:translateX(-50%) translateY(-170%); }
-    }
+  animation:sw-move 200s linear infinite;
+  animation-delay:10s;       
+}
+.sw-crawl p{
+  margin:0 0 1.1em 0;
+}
+@keyframes sw-move{
+  0%   { transform:translateX(-50%) translateY(60%); opacity:1; }
+  95%  { opacity:1; }
+  100% { transform:translateX(-50%) translateY(-170%); opacity:0; }
+}
   </style>
 </head>
 <body>
@@ -134,5 +136,6 @@
   </script>
 </body>
 </html>
+
 
 
