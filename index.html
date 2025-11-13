@@ -4,10 +4,80 @@
   <meta charset="utf-8" />
   <title>Мой Globe.gl</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>html,body{margin:0;height:100%;background:#000}#globe{position:fixed;inset:0}</style>
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/globe.gl@^2.34.0/dist/globe.gl.min.js"></script>
+  <style>
+    html,body{margin:0;height:100%;background:#000}
+    #globe{position:fixed;inset:0;z-index:1}
+
+    .sw-wrap{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      display:flex;
+      justify-content:flex-end;
+      align-items:flex-end;
+      padding:6vh 6vw;
+    }
+    .sw-stage{
+      width:min(60vw,950px);
+      height:min(70vh,900px);
+      perspective:1200px;
+      opacity:.95;
+      filter:saturate(1.1);
+    }
+    .sw-plane{
+      position:relative;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      transform:rotateX(48deg) rotateZ(-10deg);
+      transform-origin:50% 100%;
+      -webkit-mask-image:linear-gradient(#0000 0%, #000 10%, #000 85%, #0000 100%);
+      mask-image:linear-gradient(#0000 0%, #000 10%, #000 85%, #0000 100%);
+    }
+    .sw-crawl{
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%) translateY(100%);
+      width:86%;
+      color:#ffe81f;
+      font:700 clamp(22px,2.4vw,44px)/1.42 "Russo One", system-ui, Arial, Helvetica, sans-serif;
+      letter-spacing:.6px;
+      text-align:justify;
+      text-shadow:0 0 10px rgba(0,0,0,.9);
+      animation:sw-move 65s linear infinite;
+    }
+    .sw-crawl h3{
+      margin:0 0 .8em 0;
+      text-align:center;
+      letter-spacing:1px;
+      font-size:clamp(26px,3vw,56px);
+    }
+    @keyframes sw-move{
+      0%   { transform:translateX(-50%) translateY(100%); }
+      100% { transform:translateX(-50%) translateY(-260%); }
+    }
+  </style>
 </head>
 <body>
+
+  <div class="sw-wrap">
+    <div class="sw-stage">
+      <div class="sw-plane">
+        <div class="sw-crawl">
+          <p>В бескрайней тьме тех лет, когда сообщество искало ориентиры, появился свет. Он был не громким, но уверенным. Не требовал поклонения, но звал к движению. Этот свет назвали «Маяк».</p>
+          <p>С того дня прошло десять лет.</p>
+          <p>Организация, задуманная как опорная точка для ЛГБТК+ людей Дальнего Востока, стала больше, чем регион. Она превратилась в сеть поддержки, пересекающую границы. Там, где людям угрожала тьма преследования, Маяк поднимал свой луч выше. Там, где люди оставались одни, он давал чувство принадлежности. Там, где мир становился опасным, он становился направляющим светом.</p>
+          <p>Сегодня Маяк помогает людям далеко за пределами родного региона. И в честь десятилетия мы поднимаем взгляд к звёздам и показываем, на каких точках планеты уже вспыхивал и продолжает светить этот свет — свет солидарности, взаимопомощи и достоинства.</p>
+          <p>Пусть этот луч идёт дальше. Пусть он становится ярче. И пусть каждый, кто ищет путь во тьме, увидит его — и поймёт, что он не один.</p>
+          <p>С ДНЕМ РОЖДЕНИЯ МАЯК!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="globe"></div>
   <script>
     const g = Globe()(document.getElementById('globe'))
@@ -29,9 +99,7 @@
 
       const pointColor = d => {
         const t = norm(d);
-        const r = Math.round(255);
-        const g = Math.round(180 - 180*t);
-        const b = Math.round(0);
+        const r = 255, g = Math.round(180 - 180*t), b = 0;
         return `rgba(${r},${g},${b},0.95)`;
       };
 
@@ -53,7 +121,7 @@
         .htmlElement(d => {
           const el = document.createElement('div');
           el.textContent = d.name;
-          el.style.font = '700 14px Segoe UI, Arial, Helvetica, sans-serif';
+          el.style.font = '700 14px "Russo One", system-ui, Arial, Helvetica, sans-serif';
           el.style.color = '#fff';
           el.style.textShadow = '0 0 3px #000, 0 0 5px #000';
           el.style.pointerEvents = 'none';
@@ -65,3 +133,4 @@
   </script>
 </body>
 </html>
+
