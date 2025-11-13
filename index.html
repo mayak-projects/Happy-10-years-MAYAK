@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/globe.gl@^2.34.0/dist/globe.gl.min.js"></script>
-    <style>
+  <style>
     html,body{margin:0;height:100%;background:#000}
     #globe{position:fixed;inset:0;z-index:1}
 
@@ -16,9 +16,9 @@
       z-index:2;
       pointer-events:none;
       display:flex;
-      justify-content:center;     /* по центру по горизонтали */
-      align-items:flex-end;       /* снизу, под планетой */
-      padding-bottom:6vh;         /* отступ снизу */
+      justify-content:center;
+      align-items:flex-end;
+      padding-bottom:6vh;
     }
     .sw-stage{
       width:min(60vw,900px);
@@ -28,45 +28,39 @@
       filter:saturate(1.1);
     }
     .sw-plane{
-  position:relative;
-  width:100%;
-  height:100%;
-  overflow:hidden;
-  /* было: rotateX(48deg) rotateZ(-10deg); */
-  transform:rotateX(32deg) rotateZ(0deg);
-  transform-origin:50% 100%;
-  -webkit-mask-image:linear-gradient(#0000 0%, #000 10%, #000 85%, #0000 100%);
-  mask-image:linear-gradient(#0000 0%, #000 10%, #000 85%, #0000 100%);
-}
+      position:relative;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      transform:rotateX(32deg) rotateZ(0deg);
+      transform-origin:50% 100%;
+      -webkit-mask-image:linear-gradient(#0000 0%, #000 10%, #000 85%, #0000 100%);
+      mask-image:linear-gradient(#0000 0%, #000 10%, #000 85%, #0000 100%);
+    }
     .sw-crawl{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%) translateY(30%);
-  width:86%;
-  color:#ffe81f;
-  font:700 clamp(22px,2.4vw,44px)/1.42 "Russo One", system-ui, Arial, Helvetica, sans-serif;
-  letter-spacing:.6px;
-  text-align:justify;
-  text-shadow:0 0 10px rgba(0,0,0,.9);
-  animation:sw-move 200s linear infinite;
-  animation-delay:8s;
-}
-.sw-crawl p{
-  margin:0 0 1.1em 0;
-}
-@keyframes sw-move{
-  0%   { transform:translateX(-50%) translateY(30%); opacity:1; }
-  95%  { opacity:1; }
-  100% { transform:translateX(-50%) translateY(-170%); opacity:0; }
-}
-  95%  { opacity:1; }
-  100% { transform:translateX(-50%) translateY(-170%); opacity:0; }
-}
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%) translateY(30%);
+      width:86%;
+      color:#ffe81f;
+      font:700 clamp(22px,2.4vw,44px)/1.42 "Russo One", system-ui, Arial, Helvetica, sans-serif;
+      letter-spacing:.6px;
+      text-align:justify;
+      text-shadow:0 0 10px rgba(0,0,0,.9);
+      animation:sw-move 110s linear infinite;
+      animation-delay:6s;
+    }
+    .sw-crawl p{
+      margin:0 0 1.1em 0;
+    }
+    @keyframes sw-move{
+      0%   { transform:translateX(-50%) translateY(30%); opacity:1; }
+      100% { transform:translateX(-50%) translateY(-170%); opacity:1; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Звёздные титры -->
   <div class="sw-wrap">
     <div class="sw-stage">
       <div class="sw-plane">
@@ -82,7 +76,6 @@
     </div>
   </div>
 
-  <!-- Глобус -->
   <div id="globe"></div>
   <script>
     const g = Globe()(document.getElementById('globe'))
@@ -135,11 +128,9 @@
           return el;
         });
     });
-      const introAudio = new Audio('intro.mp3');
-    introAudio.loop = true;
 
+    const introAudio = new Audio('intro.mp3');
     let introStarted = false;
-
     function startIntroAudio() {
       if (introStarted) return;
       introStarted = true;
@@ -147,11 +138,11 @@
         introStarted = false;
       });
     }
-
     window.addEventListener('pointerdown', startIntroAudio, { once: true });
   </script>
 </body>
 </html>
+
 
 
 
