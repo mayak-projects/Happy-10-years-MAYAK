@@ -6,22 +6,22 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/globe.gl@^2.34.0/dist/globe.gl.min.js"></script>
-  <style>
+    <style>
     html,body{margin:0;height:100%;background:#000}
     #globe{position:fixed;inset:0;z-index:1}
 
     .sw-wrap{
       position:fixed;
       inset:0;
-      z-index:2;                 /* <-- подняли над шаром */
+      z-index:2;
       pointer-events:none;
       display:flex;
-      justify-content:flex-end;
-      align-items:flex-end;
-      padding:6vh 6vw;
+      justify-content:center;     /* по центру по горизонтали */
+      align-items:flex-end;       /* снизу, под планетой */
+      padding-bottom:6vh;         /* отступ снизу */
     }
     .sw-stage{
-      width:min(60vw,950px);
+      width:min(60vw,900px);
       height:min(70vh,900px);
       perspective:1200px;
       opacity:.95;
@@ -47,11 +47,12 @@
       letter-spacing:.6px;
       text-align:justify;
       text-shadow:0 0 10px rgba(0,0,0,.9);
-      animation:sw-move 65s linear infinite;
+      animation:sw-move 140s linear infinite;  /* медленнее: было 65s */
     }
     .sw-crawl p{
       margin:0 0 1.1em 0;
     }
+
     @keyframes sw-move{
       0%   { transform:translateX(-50%) translateY(100%); }
       100% { transform:translateX(-50%) translateY(-260%); }
@@ -132,3 +133,4 @@
   </script>
 </body>
 </html>
+
